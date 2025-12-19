@@ -18,7 +18,7 @@ parser.add_argument("--batch_size", default=256, type=int)
 parser.add_argument("--model_type", default="resnet", type=str)
 # mia parameters
 parser.add_argument("--seed", default=42, type=int)
-parser.add_argument("--n_queries", default=None, type=int)
+parser.add_argument("--n_queries", default=2, type=int) # data augmentations per sample during inference
 parser.add_argument("--n_shadows", default=257, type=int)
 parser.add_argument("--savedir", default="./results/", type=str)
 
@@ -27,7 +27,6 @@ load_config(args)
 print(args)
 data_dir = os.path.join("data",args.dataset)
 save_dir = os.path.join("results", args.dataset, datetime.now().strftime('%Y-%m-%d'))
-save_dir = os.path.join(save_dir, str(args.shadow_id))
 
 
 # Step 1: Train shadow models in parallel
