@@ -31,8 +31,6 @@ save_dir = os.path.join("results", args.dataset, datetime.now().strftime('%Y-%m-
 
 # Step 1: Train shadow models in parallel
 for shadow_id in range(0, args.n_shadows):
-    save_dir = os.path.join(save_dir, str(shadow_id))
-
     if shadow_id % args.n_gpus == args.cuda:
         os.environ["CUDA_VISIBLE_DEVICES"] = str(0)
         print(f"Training model {shadow_id}/{args.n_shadows} ...")
