@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--dataset", default="cifar10", type=str)
 parser.add_argument("--attack", default="lira", type=str)
 parser.add_argument("--n_shadows", default=256, type=int)
+parser.add_argument("--save_dir", default="./results/", type=str)
 
 args = parser.parse_args()
 
@@ -17,12 +18,12 @@ print(args)
 
 
 test_logits, test_mask = get_test(
-    args.dataset, args.n_shadows, attack_type=args.attack, data_type="shadow", model_type="shadow"
+    args.save_dir, args.n_shadows, attack_type=args.attack, data_type="shadow", model_type="shadow"
 )
 
 attack_module = importlib.import_module(f"attacks.{args.attack}")
 
-final_score = attack_module.attack(args.dataset, args.n_shadows, test_logits)
+final_score = attack_module.attack(args.save_dir, args.n_shadows, test_logits)
 
 auc, acc, lw0, lw1, lw2, lw3, lw4 = eval_attack(final_score, test_mask.astype(bool))
 

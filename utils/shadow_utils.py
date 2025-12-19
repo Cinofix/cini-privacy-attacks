@@ -29,7 +29,7 @@ def mia_output(attack_type, data_type, model_type):
 
 
 def get_test(
-    dataset: str, n_shadows: int, attack_type: str = "lira", data_type: str = "shadow", model_type: str = "shadow"
+    save_dir: str, n_shadows: int, attack_type: str = "lira", data_type: str = "shadow", model_type: str = "shadow"
 ):
     """
     Get the test models which are the last models in the first round.
@@ -44,16 +44,16 @@ def get_test(
         - test_masks (np.ndarray): Array of shape (n_samples, ) containing membership mask
             for the test model
     """
-    print(f"load {dataset}/{n_shadows-1} as test model ...")
+    print(f"load {n_shadows-1} as test model ...")
     res_file = mia_output(attack_type, data_type, model_type)
-    test_logits = np.load(f"{dataset}/{n_shadows-1}/{res_file}")
-    test_masks = np.load(f"{dataset}/{n_shadows-1}/{model_type}_keep.npy")
+    test_logits = np.load(f"{save_dir}/{n_shadows-1}/{res_file}")
+    test_masks = np.load(f"{save_dir}/{n_shadows-1}/{model_type}_keep.npy")
 
     return test_logits, test_masks
 
 
 def get_all_shadow_models(
-    dataset: str, n_shadow: int, attack_type: str = "lira", data_type: str = "shadow", model_type: str = "shadow"
+    save_dir: str, n_shadow: int, attack_type: str = "lira", data_type: str = "shadow", model_type: str = "shadow"
 ):
     """
     Load the keep mask and scores of the shadow models.
@@ -72,7 +72,7 @@ def get_all_shadow_models(
     """
     shadow_logits = []
     shadow_masks = []
-    shadow_dir = f"{dataset}"
+    shadow_dir = save_dir
 
     for model_idx in range(n_shadow - 1):
         model_dir = os.path.join(shadow_dir, str(model_idx))
