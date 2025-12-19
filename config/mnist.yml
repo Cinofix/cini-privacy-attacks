@@ -5,4 +5,4 @@ model_type: "resnet"
 # path config
 data_dir: "/path/to/your/datasets"
 # env
-n_gpus: 12
+n_gpus: 24
