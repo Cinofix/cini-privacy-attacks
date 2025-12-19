@@ -11,9 +11,9 @@ parser = argparse.ArgumentParser()
 
 ######### env configuration ########
 parser.add_argument("--dataset", default="cifar10", type=str)
-parser.add_argument("--attack", default="smia", type=str)
+parser.add_argument("--attack", default="lira", type=str)
+parser.add_argument("--n_shadows", default=17, type=int)
 args = parser.parse_args()
-load_config(args)
 print(args)
 
 
